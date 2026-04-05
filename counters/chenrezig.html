@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <title>Chenrezig</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body { background: #ffffff; height: 100dvh; display: flex; justify-content: center; flex-direction: column; align-items: center; font-family: "Montserrat", sans-serif, Georgia, serif; overflow: hidden;}
+    .back-btn { position: absolute; top: 1.2rem; left: 1.2rem; display: flex; align-items: center; gap: 0.4rem; text-decoration: none; color: #dacbba; font-size: 13px; letter-spacing: 0.04em; }
+    .back-btn .arrow { width: 7px; height: 7px; border-left: 1.5px solid #b4a899; border-top: 1.5px solid #b4a899; transform: rotate(-45deg); }
+    .page-title { position: absolute; top: 3rem; left: 50%; transform: translateX(-50%); font-size: 17px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: #8b6f5e; white-space: nowrap; }
+    .image-area { width: 100%; max-width: 200px; display: flex; border-radius: 25px; box-shadow:  #928e8c 0px 5px 25px; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+    .image-area img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .image-placeholder { width: 160px; height: 160px; border-radius: 25px; background: #ddd5c8; }
+    .content { margin: 0 auto; width: 100%; max-width: 480px; display: flex; flex-direction: column; align-items: center; padding: 2.5rem 1.5rem 3rem; gap: 1.5rem; }
+    .total-block { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+    .total-label { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #b4a899; }
+    .total-number { font-size: 52px; text-shadow: 0px 0px 15px #ffffff; font-weight: 400; color: #7c7877; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+    .progress-wrap { width: 80%; display: flex; flex-direction: column; gap: 0.5rem; }
+    .progress-track { width: 100%; height: 3px; background: #ddd5c8; border-radius: 2px; overflow: hidden; }
+    .progress-fill { height: 100%; background: #8b6f5e; border-radius: 2px; width: 0%; transition: width 0.4s ease; }
+    .progress-labels { display: flex; justify-content: space-between; }
+    .progress-labels span { font-size: 12px; color: #b5a899; letter-spacing: 0.04em; }
+    .btn-wrap { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin: 0.8rem 0; }
+    .counter-btn { width: 90px; height: 90px; border-radius: 20%; border: none; background: #fffaf8; color: #837e76; font-family: "Montserrat", sans-serif, Georgia, serif;; font-size: 32px; font-weight: 400; cursor: pointer; position: relative; transition: transform 0.12s ease, box-shadow 0.12s ease; box-shadow: 0 2px 4px rgba(139,111,94,0.15), 0 6px 16px rgba(139,111,94,0.25), 0 12px 32px rgba(139,111,94,0.18), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -2px 4px rgba(0,0,0,0.12); }
+    .counter-btn:active { transform: scale(0.94) translateY(2px); box-shadow: 0 1px 3px rgba(139,111,94,0.18), 0 3px 8px rgba(139,111,94,0.2), inset 0 2px 6px rgba(0,0,0,0.18); }
+    .counter-btn:disabled { background: #d4c9bf; cursor: default; box-shadow: none; transform: none; }
+    .done-msg { display: none; font-size: 17px; color: #8b6f5e; text-align: center; letter-spacing: 0.04em; line-height: 1.7; }
+    @keyframes ripple { 0% { transform: scale(0.5); opacity: 0.5; } 100% { transform: scale(2.4); opacity: 0; } }
+    .ripple { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.35); width: 60px; height: 60px; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5); animation: ripple 0.5s ease-out forwards; pointer-events: none; }
+  </style>
+</head>
+<body>
+
+  <a class="back-btn" href="../index.html"><div class="arrow"></div>Back</a>
+  <span class="page-title">Chenrezig</span>
+
+  <div class="content">
+    <div class="image-area">
+      <img src="img-counters/Chenrezig.jpg" alt="Chenrezig">
+    </div>
+    <div class="btn-wrap">
+      <button class="counter-btn" id="btn" onclick="addPoints(this)">108</button>
+      <p class="done-msg" id="done-msg">111,111 reached</p>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="progress-labels">
+        <span id="clicks-label">0 clicks</span>
+        <span>goal: 111,111</span>
+      </div>
+    </div>
+    <div class="total-block">
+      <p class="total-label">Total</p>
+      <p class="total-number" id="total">0</p>
+    </div>
+  </div>
+
+  <script>
+    const GOAL = 111111;
+    const STEP = 108;
+    const STORAGE_KEY = 'counter-total-chenrezig';
+    const CLICKS_KEY  = 'counter-clicks-chenrezig';
+    let total  = parseInt(localStorage.getItem(STORAGE_KEY)) || 0;
+    let clicks = parseInt(localStorage.getItem(CLICKS_KEY))  || 0;
+    document.getElementById('total').textContent = total.toLocaleString();
+    document.getElementById('progress-fill').style.width = Math.round((total / GOAL) * 100) + '%';
+    document.getElementById('clicks-label').textContent = clicks + (clicks === 1 ? ' click' : ' clicks');
+    if (total >= GOAL) { document.getElementById('btn').disabled = true; document.getElementById('done-msg').style.display = 'block'; }
+    function addPoints(btn) {
+      if (total >= GOAL) return;
+      total = Math.min(total + STEP, GOAL);
+      clicks++;
+      localStorage.setItem(STORAGE_KEY, total);
+      localStorage.setItem(CLICKS_KEY, clicks);
+      document.getElementById('total').textContent = total.toLocaleString();
+      document.getElementById('progress-fill').style.width = Math.round((total / GOAL) * 100) + '%';
+      document.getElementById('clicks-label').textContent = clicks + (clicks === 1 ? ' click' : ' clicks');
+      const r = document.createElement('span');
+      r.className = 'ripple';
+      btn.appendChild(r);
+      setTimeout(() => r.remove(), 500);
+      if (total >= GOAL) { btn.disabled = true; document.getElementById('done-msg').style.display = 'block'; }
+    }
+  </script>
+</body>
+</html>

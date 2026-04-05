@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <title>DW counter</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: #ffffff;
+      min-height: 100dvh;
+      font-family: "Montserrat", sans-serif, Georgia, serif;
+      padding: 2.5rem 1.25rem 3rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #8b6f5e;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #b4a899;
+      margin: 2rem 0 0.75rem;
+    }
+
+    .divider {
+      width: 100%;
+      height: 0.5px;
+      background: #ddd5c8;
+      margin-bottom: 0.5rem;
+    }
+
+    .counter-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 0.5rem;
+      border-bottom: 0.5px solid #ede4dc;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+      border-radius: 8px;
+    }
+
+    .counter-row:active {
+      background: #ede4dc;
+    }
+
+    .row-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      flex: 1;
+    }
+
+    .row-title {
+      font-size: 16px;
+      font-weight: 400;
+      color: #5a5756;
+      letter-spacing: 0.01em;
+    }
+
+    .row-progress {
+      font-size: 11px;
+      color: #b4a899;
+      letter-spacing: 0.04em;
+    }
+
+    .row-img {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      box-shadow:  0px 3px 8px #b1acaa, 0px 7px 20px #b1acaa, 0px 15px 40px #b1acaa;
+      object-fit: cover;
+      background: #ddd5c8;
+      flex-shrink: 0;
+      margin-left: 1rem;
+    }
+
+    .img-title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .img-title img {
+      width: 55px;
+      height: 55px;
+      object-fit: cover;
+      /* margin-right: 0.75rem; */
+    }
+
+    .row-img-placeholder {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: #ddd5c8;
+      flex-shrink: 0;
+      margin-left: 1rem;
+    }
+
+    .chevron {
+      width: 7px;
+      height: 7px;
+      border-right: 1.5px solid #b4a899;
+      border-top: 1.5px solid #b4a899;
+      transform: rotate(45deg);
+      margin-left: 0.75rem;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="img-title">
+    <img src="img/diamondway-firewheel.png" alt="">
+    <h1>DW counter</h1>
+  </div>
+  
+
+  <p class="section-title">Ngondro</p>
+  <div class="divider"></div>
+
+  <a class="counter-row" href="counters/refuge-tree.html">
+    <div class="row-left">
+      <span class="row-title">Refuge Tree</span>
+      <span class="row-progress" id="prog-refuge">0 / 111,111</span>
+    </div>
+    <img class="row-img" src="img/Refuge.jpg" alt="">
+    <div class="chevron"></div>
+  </a>
+
+  <a class="counter-row" href="counters/diamond-mind.html">
+    <div class="row-left">
+      <span class="row-title">Diamond Mind</span>
+      <span class="row-progress" id="prog-diamond">0 / 111,111</span>
+    </div>
+    <img class="row-img" src="img/Diamond-mind.jpg" alt="Diamond Mind">
+    <div class="chevron"></div>
+  </a>
+
+  <a class="counter-row" href="counters/mandala-offering.html">
+    <div class="row-left">
+      <span class="row-title">Mandala Offering</span>
+      <span class="row-progress" id="prog-mandala">0 / 111,111</span>
+    </div>
+    <img class="row-img" src="img/Mandala.jpg" alt="">
+    <div class="chevron"></div>
+  </a>
+
+  <a class="counter-row" href="counters/guruyoga.html">
+    <div class="row-left">
+      <span class="row-title">Guruyoga</span>
+      <span class="row-progress" id="prog-guruyoga">0 / 111,111</span>
+    </div>
+    <img class="row-img" src="img/Guruyoga.jpg" alt="">
+    <div class="chevron"></div>
+  </a>
+
+  <p class="section-title">Other Practice</p>
+  <div class="divider"></div>
+
+  <a class="counter-row" href="counters/amitabha.html">
+    <div class="row-left">
+      <span class="row-title">Amitabha</span>
+      <span class="row-progress" id="prog-amitabha">0 / 111,111</span>
+    </div>
+    <img class="row-img" src="img/Amitabha.jpg" alt="Amitabha">
+    <div class="chevron"></div>
+  </a>
+
+  <a class="counter-row" href="counters/chenrezig.html">
+    <div class="row-left">
+      <span class="row-title">Chenrezig</span>
+      <span class="row-progress" id="prog-chenrezig">0 / 111,111</span>
+    </div>
+    <img class="row-img" src="img/Chenrezig.jpg" alt="Chenrezig">
+    <div class="chevron"></div>
+  </a>
+
+  <a class="counter-row" href="counters/16-Karmapa.html">
+    <div class="row-left">
+      <span class="row-title">16.Karmapa</span>
+      <span class="row-progress" id="prog-16-karmapa">0 / 111,111</span>
+    </div>
+    <img class="row-img" src="img/16thKarmapa.jpg" alt="16. Karmapa">
+    <div class="chevron"></div>
+  </a>
+
+  <script>
+    const counters = [
+      { id: 'prog-refuge',    key: 'refuge-tree' },
+      { id: 'prog-diamond',   key: 'diamond-mind' },
+      { id: 'prog-mandala',   key: 'mandala-offering' },
+      { id: 'prog-guruyoga',  key: 'guruyoga' },
+      { id: 'prog-amitabha',  key: 'amitabha' },
+      { id: 'prog-chenrezig', key: 'chenrezig' },
+      { id: 'prog-16-Karmapa',key: '16-Karmapa' },
+    ];
+
+    counters.forEach(({ id, key }) => {
+      const total = parseInt(localStorage.getItem('counter-total-' + key)) || 0;
+      document.getElementById(id).textContent = total.toLocaleString() + ' / 111,111';
+    });
+  </script>
+
+</body>
+</html>
