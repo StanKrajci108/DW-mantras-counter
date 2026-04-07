@@ -1,0 +1,19 @@
+{
+  "name": "DW Counter",
+  "short_name": "DW Counter",
+  "description": "Diamond Way practice counter — 108 points per click toward 111,111",
+  "start_url": "/DW-mantras-counter/index.html",
+  "scope": "/DW-mantras-counter/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/DW-mantras-counter/img/app_logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
