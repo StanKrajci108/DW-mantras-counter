@@ -30,19 +30,19 @@
   ],
 "screenshots": [
     {
-      "src": "/screenshots/screen1.png",
+      "src": "/DW-mantras-counter/screenshots/screen1.png",
       "sizes": "1280x2280",
       "type": "image/png",
       "form_factor": "narrow"
     },
     {
-      "src": "/screenshots/screen2.png",
+      "src": "/DW-mantras-counter/screenshots/screen2.png",
       "sizes": "1280x2280",
       "type": "image/png",
       "form_factor": "narrow"
     },
     {
-      "src": "/screenshots/screen3.png",
+      "src": "/DW-mantras-counter/screenshots/screen3.png",
       "sizes": "1280x2280",
       "type": "image/png",
       "form_factor": "narrow"
