@@ -31,6 +31,23 @@
     .done-msg { display: none; font-size: 17px; color: #8b6f5e; text-align: center; letter-spacing: 0.04em; line-height: 1.7; }
     @keyframes ripple { 0% { transform: scale(0.5); opacity: 0.5; } 100% { transform: scale(2.4); opacity: 0; } }
     .ripple { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.35); width: 60px; height: 60px; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5); animation: ripple 0.5s ease-out forwards; pointer-events: none; }
+    .corner-btn {
+      position: absolute;
+      bottom: 2rem;
+      border: none;
+      background: transparent;
+      color: #b4a899;
+      font-family: "Montserrat", sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .corner-btn:active { background: #f5ede8; color: #8b6f5e; }
+    .btn-minus { left: 1.5rem; }
+    .btn-reset { right: 1.5rem; }
   </style>
 </head>
 <body>
@@ -58,32 +75,58 @@
       <p class="total-number" id="total">0</p>
     </div>
   </div>
-
+  <button class="corner-btn btn-minus" onclick="subtractPoints()">−108</button>
+  <button class="corner-btn btn-reset" onclick="resetCounter()">Reset</button>
   <script>
     const GOAL = 111111;
     const STEP = 108;
-    const STORAGE_KEY = 'counter-total-guruyoga';
-    const CLICKS_KEY  = 'counter-clicks-guruyoga';
+    const STORAGE_KEY = 'counter-total-16-Karmapa';
+    const CLICKS_KEY  = 'counter-clicks-16-Karmapa';
     let total  = parseInt(localStorage.getItem(STORAGE_KEY)) || 0;
     let clicks = parseInt(localStorage.getItem(CLICKS_KEY))  || 0;
-    document.getElementById('total').textContent = total.toLocaleString();
-    document.getElementById('progress-fill').style.width = Math.round((total / GOAL) * 100) + '%';
-    document.getElementById('clicks-label').textContent = clicks + (clicks === 1 ? ' click' : ' clicks');
-    if (total >= GOAL) { document.getElementById('btn').disabled = true; document.getElementById('done-msg').style.display = 'block'; }
+
+    function updateUI() {
+      document.getElementById('total').textContent = total.toLocaleString();
+      document.getElementById('progress-fill').style.width = Math.round((total / GOAL) * 100) + '%';
+      document.getElementById('clicks-label').textContent = clicks + (clicks === 1 ? ' mala' : ' malas');
+      const goalReached = total >= GOAL;
+      document.getElementById('btn').disabled = goalReached;
+      document.getElementById('done-msg').style.display = goalReached ? 'block' : 'none';
+    }
+
+    updateUI();
+
     function addPoints(btn) {
       if (total >= GOAL) return;
+      navigator.vibrate(30);
       total = Math.min(total + STEP, GOAL);
       clicks++;
       localStorage.setItem(STORAGE_KEY, total);
       localStorage.setItem(CLICKS_KEY, clicks);
-      document.getElementById('total').textContent = total.toLocaleString();
-      document.getElementById('progress-fill').style.width = Math.round((total / GOAL) * 100) + '%';
-      document.getElementById('clicks-label').textContent = clicks + (clicks === 1 ? ' click' : ' clicks');
+      updateUI();
       const r = document.createElement('span');
       r.className = 'ripple';
       btn.appendChild(r);
       setTimeout(() => r.remove(), 500);
-      if (total >= GOAL) { btn.disabled = true; document.getElementById('done-msg').style.display = 'block'; }
+    }
+
+    function subtractPoints() {
+      if (total <= 0) return;
+      navigator.vibrate(20);
+      total = Math.max(total - STEP, 0);
+      clicks = Math.max(clicks - 1, 0);
+      localStorage.setItem(STORAGE_KEY, total);
+      localStorage.setItem(CLICKS_KEY, clicks);
+      updateUI();
+    }
+
+    function resetCounter() {
+      if (!confirm('Reset counter to zero?')) return;
+      total = 0;
+      clicks = 0;
+      localStorage.setItem(STORAGE_KEY, 0);
+      localStorage.setItem(CLICKS_KEY, 0);
+      updateUI();
     }
   </script>
 </body>
