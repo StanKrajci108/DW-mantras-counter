@@ -1,5 +1,6 @@
 {
   "name": "DW Counter",
+  "id": "dw-counter",
   "short_name": "DW Counter",
   "description": "Diamond Way practice counter — 108 points per click toward 111,111",
   "start_url": "https://stankrajci108.github.io/DW-mantras-counter/index.html",
