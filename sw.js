@@ -1,13 +1,5 @@
-const CACHE_NAME = 'dw-counter-v1';
+const CACHE_NAME = 'dw-counter-v3';
 const ASSETS = [
-  '/DW-mantras-counter/index.html',
-  '/DW-mantras-counter/counters/refuge-tree.html',
-  '/DW-mantras-counter/counters/diamond-mind.html',
-  '/DW-mantras-counter/counters/mandala-offering.html',
-  '/DW-mantras-counter/counters/guruyoga.html',
-  '/DW-mantras-counter/counters/amitabha.html',
-  '/DW-mantras-counter/counters/chenrezig.html',
-  '/DW-mantras-counter/counters/16-Karmapa.html',
   '/DW-mantras-counter/img/app_logo.png',
   '/DW-mantras-counter/img/diamondway-firewheel.png',
   '/DW-mantras-counter/img/Refuge.jpg',
@@ -43,7 +35,14 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(cached => cached || fetch(event.request))
-  );
+  const url = new URL(event.request.url);
+  if (url.pathname.endsWith('.html') || url.pathname.endsWith('/')) {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match(event.request))
+    );
+  } else {
+    event.respondWith(
+      caches.match(event.request).then(cached => cached || fetch(event.request))
+    );
+  }
 });

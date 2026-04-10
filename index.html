@@ -229,12 +229,11 @@
   }
 
   updateProgress();
-
+  window.addEventListener('pageshow', updateProgress);
+  window.addEventListener('focus', updateProgress);
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') updateProgress();
   });
-
-  window.addEventListener('pageshow', updateProgress);
 </script>
 
 </body>
