@@ -211,21 +211,31 @@
   </a>
 
   <script>
-    const counters = [
-      { id: 'prog-refuge',    key: 'refuge-tree' },
-      { id: 'prog-diamond',   key: 'diamond-mind' },
-      { id: 'prog-mandala',   key: 'mandala-offering' },
-      { id: 'prog-guruyoga',  key: 'guruyoga' },
-      { id: 'prog-amitabha',  key: 'amitabha' },
-      { id: 'prog-chenrezig', key: 'chenrezig' },
-      { id: 'prog-16-Karmapa',key: '16-Karmapa' },
-    ];
+  const counters = [
+    { id: 'prog-refuge',     key: 'refuge-tree' },
+    { id: 'prog-diamond',    key: 'diamond-mind' },
+    { id: 'prog-mandala',    key: 'mandala-offering' },
+    { id: 'prog-guruyoga',   key: 'guruyoga' },
+    { id: 'prog-amitabha',   key: 'amitabha' },
+    { id: 'prog-chenrezig',  key: 'chenrezig' },
+    { id: 'prog-16-Karmapa', key: '16-Karmapa' },
+  ];
 
+  function updateProgress() {
     counters.forEach(({ id, key }) => {
       const total = parseInt(localStorage.getItem('counter-total-' + key)) || 0;
       document.getElementById(id).textContent = total.toLocaleString() + ' / 111,111';
     });
-  </script>
+  }
+
+  updateProgress();
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') updateProgress();
+  });
+
+  window.addEventListener('pageshow', updateProgress);
+</script>
 
 </body>
 </html>
