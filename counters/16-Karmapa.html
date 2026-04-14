@@ -160,7 +160,20 @@
       font-family: "Montserrat", sans-serif;
       font-size: 28px;
       cursor: pointer;
-      box-shadow: 0 2px 4px rgba(139,111,94,0.15), 0 6px 16px rgba(139,111,94,0.25);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      box-shadow: 0 2px 4px rgba(139,111,94,0.15), 0 6px 16px rgba(139,111,94,0.25), 0 12px 32px rgba(139,111,94,0.18), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -2px 4px rgba(0,0,0,0.12);
+    }
+
+    .counter-btn:active {
+      transform: scale(0.94) translateY(2px);
+      box-shadow: 0 1px 3px rgba(139,111,94,0.18), 0 3px 8px rgba(139,111,94,0.2), inset 0 2px 6px rgba(0,0,0,0.18);
+    }
+
+    .counter-btn:disabled {
+      background: #d4c9bf;
+      cursor: default;
+      box-shadow: none;
+      transform: none;
     }
 
     .small-btn {
@@ -294,6 +307,12 @@ const STORAGE_KEY = 'counter-total-16-Karmapa';
 let total = parseInt(localStorage.getItem(STORAGE_KEY)) || 0;
 let modalMode = null;
 
+function vibrate() {
+  if (navigator.vibrate) {
+    navigator.vibrate(30);
+  }
+}
+
 function getMalas() {
   return Math.floor(total / STEP);
 }
@@ -309,16 +328,19 @@ function updateUI() {
 }
 
 function addMala() {
+  vibrate();
   total += STEP;
   save();
 }
 
 function subtractMala() {
+  vibrate();
   total = Math.max(0, total - STEP);
   save();
 }
 
 function addCustom() {
+  vibrate();
   modalMode = 'add';
   document.getElementById('modal-text').textContent = 'Add amount of mantras / repetations';
   document.getElementById('modal-input').value = '';
@@ -327,6 +349,7 @@ function addCustom() {
 }
 
 function resetCounter() {
+  vibrate();
   modalMode = 'reset';
   document.getElementById('modal-text').textContent = 'Reset counter?';
   document.getElementById('modal-input').style.display = 'none';
