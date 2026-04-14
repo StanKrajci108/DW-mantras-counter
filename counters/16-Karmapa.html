@@ -1,87 +1,283 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <title>16.Karmapa</title>
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body { background: #ffffff; height: 100dvh; display: flex; justify-content: center; flex-direction: column; align-items: center; font-family: "Montserrat", sans-serif, Georgia, serif; overflow: hidden;}
-    .back-btn { position: absolute; top: 1.2rem; left: 1.2rem; display: flex; align-items: center; gap: 0.4rem; text-decoration: none; color: #dacbba; font-size: 13px; letter-spacing: 0.04em; }
-    .back-btn .arrow { width: 7px; height: 7px; border-left: 1.5px solid #b4a899; border-top: 1.5px solid #b4a899; transform: rotate(-45deg); }
-    .page-title { position: absolute; top: 3rem; left: 50%; transform: translateX(-50%); font-size: 17px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: #8b6f5e; white-space: nowrap; }
-    .image-area { width: 100%; max-width: 180px; display: flex; border-radius: 25px; box-shadow:  #928e8c 0px 5px 25px; align-items: center; justify-content: center; overflow: hidden; position: relative; }
-    .image-area img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .content { margin: 0 auto; width: 100%; max-width: 480px; display: flex; flex-direction: column; align-items: center; padding: 2.5rem 1.5rem 3rem; gap: 1.5rem; }
-    .total-block { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
-    .total-label { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #b4a899; }
-    .total-number { font-size: 52px; text-shadow: 0px 0px 15px #ffffff; font-weight: 400; color: #7c7877; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-    .progress-wrap { width: 80%; display: flex; flex-direction: column; gap: 0.5rem; }
-    .progress-track { width: 100%; height: 3px; background: #ddd5c8; border-radius: 2px; overflow: hidden; }
-    .progress-fill { height: 100%; background: #8b6f5e; border-radius: 2px; width: 0%; transition: width 0.4s ease; }
-    .progress-labels { display: flex; justify-content: space-between; }
-    .progress-labels span { font-size: 12px; color: #b5a899; letter-spacing: 0.04em; }
-    .btn-wrap { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin: 0.8rem 0; }
 
-    .counter-btn { width: 108px; height: 55px; border-radius: 14px; border: none; background: #fffaf8; color: #837e76; font-family: "Montserrat", sans-serif; font-size: 28px; cursor: pointer; box-shadow: 0 2px 4px rgba(139,111,94,0.15), 0 6px 16px rgba(139,111,94,0.25); }
-    .small-btn { width: 80px; height: 50px; font-size: 12px; }
+    body {
+      background: #ffffff;
+      height: 100dvh;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      font-family: "Montserrat", sans-serif, Georgia, serif;
+      overflow: hidden;
+    }
 
-    .done-msg { display: none; font-size: 17px; color: #8b6f5e; text-align: center; }
+    .back-btn {
+      position: absolute;
+      top: 1.2rem;
+      left: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      color: #dacbba;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
 
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; align-items: flex-end; justify-content: center; }
-    .modal-overlay.active { display: flex; }
-    .modal-box { background: #fff; border-radius: 20px 20px 0 0; padding: 2rem; width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 1rem; }
-    .modal-input { padding: 1rem; border-radius: 14px; border: 1px solid #ddd5c8; font-size: 18px; text-align: center; }
-    .modal-buttons { display: flex; gap: 1rem; }
-    .modal-btn { flex: 1; padding: 0.85rem; border-radius: 12px; border: none; }
+    .back-btn .arrow {
+      width: 7px;
+      height: 7px;
+      border-left: 1.5px solid #b4a899;
+      border-top: 1.5px solid #b4a899;
+      transform: rotate(-45deg);
+    }
+
+    .page-title {
+      position: absolute;
+      top: 3.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #8b6f5e;
+      white-space: nowrap;
+    }
+
+    .image-area {
+      width: 100%;
+      max-width: 180px;
+      display: flex;
+      border-radius: 25px;
+      box-shadow: #928e8c 0px 5px 25px;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .image-area img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .content {
+      margin: 0 auto;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1.5rem 0rem;
+      gap: 1.5rem;
+    }
+
+    .total-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .total-label {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #b4a899;
+    }
+
+    .total-number {
+      font-size: 52px;
+      text-shadow: 0px 0px 15px #ffffff;
+      font-weight: 400;
+      color: #7c7877;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .progress-wrap {
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 3px;
+      background: #ddd5c8;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #8b6f5e;
+      border-radius: 2px;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .progress-labels span {
+      font-size: 12px;
+      color: #b5a899;
+      letter-spacing: 0.04em;
+    }
+
+    .btn-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin: 0.8rem 0;
+    }
+
+    .counter-btn {
+      width: 108px;
+      height: 55px;
+      border-radius: 14px;
+      border: none;
+      background: #fffaf8;
+      color: #837e76;
+      font-family: "Montserrat", sans-serif;
+      font-size: 28px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(139,111,94,0.15), 0 6px 16px rgba(139,111,94,0.25);
+    }
+
+    .small-btn {
+      width: 80px;
+      height: 50px;
+      font-size: 12px;
+    }
+
+    .done-msg {
+      display: none;
+      font-size: 17px;
+      color: #8b6f5e;
+      text-align: center;
+    }
+
+    .corner-btn {
+      position: absolute;
+      bottom: 2rem;
+      background: transparent;
+      border: none;
+      color: #b4a899;
+    }
+
+    .btn-minus { left: 1.5rem; }
+    .btn-reset { right: 1.5rem; }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 100;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 20px 20px 0 0;
+      padding: 2rem;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .modal-input {
+      padding: 1rem;
+      border-radius: 14px;
+      border: 1px solid #ddd5c8;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 0.85rem;
+      border-radius: 12px;
+      border: none;
+    }
+
     .modal-cancel { background: #f0ebe7; }
     .modal-confirm { background: #8b6f5e; color: white; }
-
-    .corner-btn { position: absolute; bottom: 2rem; background: transparent; border: none; color: #b4a899; }
-    .btn-minus { left: 1.5rem; }
-    .btn-set { left: 50%; transform: translateX(-50%); }
-    .btn-reset { right: 1.5rem; }
   </style>
+
 </head>
+
 <body>
 
-<a class="back-btn" href="../index.html"><div class="arrow"></div>Back</a>
-<span class="page-title">16.Karmapa</span>
+<a class="back-btn" href="../index.html"><div class="arrow"></div>Back</a> <span class="page-title">16.Karmapa</span>
 
 <div class="content">
+
   <div class="image-area">
     <img src="img-counters/16thKarmapa.jpg">
   </div>
 
-  <div class="btn-wrap">
-    <button class="counter-btn" id="btn" onclick="addPoints(this)">108</button>
-    <button class="counter-btn small-btn" onclick="addCustom()">add any amount</button>
-    <p class="done-msg" id="done-msg">1,000,000 reached</p>
+   <div class="total-block">
+    <p class="total-label">Total</p>
+    <p class="total-number" id="total">0</p>
   </div>
 
   <div class="progress-wrap">
-    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
     <div class="progress-labels">
-      <span id="clicks-label">0 malas</span>
+      <span id="malas-label">0 malas</span>
       <span>goal: 1,000,000</span>
     </div>
   </div>
 
-  <div class="total-block">
-    <p class="total-label">Total</p>
-    <p class="total-number" id="total">0</p>
+  <div class="btn-wrap">
+    <button class="counter-btn" onclick="addMala()">108</button>
+    <button class="counter-btn small-btn" onclick="addCustom()">add any amount</button>
+    <p class="done-msg" id="done-msg">1,000,000 reached</p>
   </div>
+
+ 
 </div>
 
-<button class="corner-btn btn-minus" onclick="subtractPoints()">−108</button>
-<button class="corner-btn btn-set" onclick="setTotal()">Set</button>
+<button class="corner-btn btn-minus" onclick="subtractMala()">−108</button> 
 <button class="corner-btn btn-reset" onclick="resetCounter()">Reset</button>
 
 <div class="modal-overlay" id="modal">
   <div class="modal-box">
-    <p class="modal-text" id="modal-text">Enter amount</p>
+    <p id="modal-text">Enter amount</p>
     <input id="modal-input" type="number" class="modal-input">
     <div class="modal-buttons">
       <button class="modal-btn modal-cancel" onclick="closeModal()">Cancel</button>
@@ -94,54 +290,64 @@
 const GOAL = 1000000;
 const STEP = 108;
 const STORAGE_KEY = 'counter-total-16-Karmapa';
-const CLICKS_KEY  = 'counter-clicks-16-Karmapa';
 
-let total  = parseInt(localStorage.getItem(STORAGE_KEY)) || 0;
-let clicks = parseInt(localStorage.getItem(CLICKS_KEY))  || 0;
+let total = parseInt(localStorage.getItem(STORAGE_KEY)) || 0;
 let modalMode = null;
+
+function getMalas() {
+  return Math.floor(total / STEP);
+}
 
 function updateUI() {
   document.getElementById('total').textContent = total.toLocaleString();
-  document.getElementById('progress-fill').style.width = Math.round((total / GOAL) * 100) + '%';
-  document.getElementById('clicks-label').textContent = clicks + ' malas';
+  document.getElementById('malas-label').textContent = getMalas() + ' malas';
+  document.getElementById('progress-fill').style.width =
+    Math.round((total / GOAL) * 100) + '%';
+
+  document.getElementById('done-msg').style.display =
+    total >= GOAL ? 'block' : 'none';
 }
 
-function addPoints(btn) {
+function addMala() {
   total += STEP;
-  clicks++;
-  localStorage.setItem(STORAGE_KEY, total);
-  localStorage.setItem(CLICKS_KEY, clicks);
-  updateUI();
+  save();
 }
 
-function subtractPoints() {
+function subtractMala() {
   total = Math.max(0, total - STEP);
-  clicks = Math.max(0, clicks - 1);
-  localStorage.setItem(STORAGE_KEY, total);
-  localStorage.setItem(CLICKS_KEY, clicks);
-  updateUI();
+  save();
 }
 
 function addCustom() {
   modalMode = 'add';
-  document.getElementById('modal-text').textContent = 'Add amount';
+  document.getElementById('modal-text').textContent = 'Add amount of mantras / repetations';
   document.getElementById('modal-input').value = '';
   document.getElementById('modal-input').style.display = 'block';
   openModal();
 }
 
-function setTotal() {
-  modalMode = 'set';
-  document.getElementById('modal-text').textContent = 'Set total amount';
-  document.getElementById('modal-input').value = '';
-  document.getElementById('modal-input').style.display = 'block';
-  openModal();
-}
 function resetCounter() {
   modalMode = 'reset';
-  document.getElementById('modal-text').textContent = 'Reset counter to zero?';
+  document.getElementById('modal-text').textContent = 'Reset counter?';
   document.getElementById('modal-input').style.display = 'none';
   openModal();
+}
+
+function confirmAction() {
+  let value = parseInt(document.getElementById('modal-input').value);
+
+  if (modalMode !== 'reset' && (isNaN(value) || value < 0)) return;
+
+  if (modalMode === 'add') total += value;
+  if (modalMode === 'reset') total = 0;
+
+  save();
+  closeModal();
+}
+
+function save() {
+  localStorage.setItem(STORAGE_KEY, total);
+  updateUI();
 }
 
 function openModal() {
@@ -152,33 +358,11 @@ function closeModal() {
   document.getElementById('modal').classList.remove('active');
 }
 
-function confirmAction() {
-  let value = parseInt(document.getElementById('modal-input').value);
-
-  if (modalMode !== 'reset' && (isNaN(value) || value < 0)) return;
-
-  if (modalMode === 'add') {
-    total += value;
-    clicks += Math.floor(value / STEP);
-  }
-
-  if (modalMode === 'set') {
-    total = value;
-    clicks = Math.floor(total / STEP);
-  }
-
-  if (modalMode === 'reset') {
-    total = 0;
-    clicks = 0;
-  }
-
-  localStorage.setItem(STORAGE_KEY, total);
-  localStorage.setItem(CLICKS_KEY, clicks);
-
-  updateUI();
-  closeModal();
-}
+updateUI();
 </script>
 
 </body>
 </html>
+
+
+
