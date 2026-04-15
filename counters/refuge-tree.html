@@ -1,157 +1,388 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-  <title>Refuge Tree</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <title>Taking Refuge</title>
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body { background: #ffffff; height: 100dvh; display: flex; justify-content: center; flex-direction: column; align-items: center; font-family: "Montserrat", sans-serif, Georgia, serif; overflow: hidden;}
-    .back-btn { position: absolute; top: 1.2rem; left: 1.2rem; display: flex; align-items: center; gap: 0.4rem; text-decoration: none; color: #dacbba; font-size: 13px; letter-spacing: 0.04em; }
-    .back-btn .arrow { width: 7px; height: 7px; border-left: 1.5px solid #b4a899; border-top: 1.5px solid #b4a899; transform: rotate(-45deg); }
-    .page-title { position: absolute; top: 3rem; left: 50%; transform: translateX(-50%); font-size: 17px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: #8b6f5e; white-space: nowrap; }
-    .image-area { width: 100%; max-width: 200px; display: flex; border-radius: 25px; box-shadow:  #928e8c 0px 5px 25px; align-items: center; justify-content: center; overflow: hidden; position: relative; }
-    .image-area img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .image-placeholder { width: 160px; height: 160px; border-radius: 25px; background: #ddd5c8; }
-    .content { margin: 0 auto; width: 100%; max-width: 480px; display: flex; flex-direction: column; align-items: center; padding: 2.5rem 1.5rem 3rem; gap: 1.5rem; }
-    .total-block { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
-    .total-label { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #b4a899; }
-    .total-number { font-size: 52px; text-shadow: 0px 0px 15px #ffffff; font-weight: 400; color: #7c7877; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-    .progress-wrap { width: 80%; display: flex; flex-direction: column; gap: 0.5rem; }
-    .progress-track { width: 100%; height: 3px; background: #ddd5c8; border-radius: 2px; overflow: hidden; }
-    .progress-fill { height: 100%; background: #8b6f5e; border-radius: 2px; width: 0%; transition: width 0.4s ease; }
-    .progress-labels { display: flex; justify-content: space-between; }
-    .progress-labels span { font-size: 12px; color: #b5a899; letter-spacing: 0.04em; }
-    .btn-wrap { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin: 0.8rem 0; }
-    .counter-btn { width: 90px; height: 90px; border-radius: 20%; border: none; background: #fffaf8; color: #837e76; font-family: "Montserrat", sans-serif, Georgia, serif;; font-size: 32px; font-weight: 400; cursor: pointer; position: relative; transition: transform 0.12s ease, box-shadow 0.12s ease; box-shadow: 0 2px 4px rgba(139,111,94,0.15), 0 6px 16px rgba(139,111,94,0.25), 0 12px 32px rgba(139,111,94,0.18), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -2px 4px rgba(0,0,0,0.12); }
-    .counter-btn:active { transform: scale(0.94) translateY(2px); box-shadow: 0 1px 3px rgba(139,111,94,0.18), 0 3px 8px rgba(139,111,94,0.2), inset 0 2px 6px rgba(0,0,0,0.18); }
-    .counter-btn:disabled { background: #d4c9bf; cursor: default; box-shadow: none; transform: none; }
-    .done-msg { display: none; font-size: 17px; color: #8b6f5e; text-align: center; letter-spacing: 0.04em; line-height: 1.7; }
-    @keyframes ripple { 0% { transform: scale(0.5); opacity: 0.5; } 100% { transform: scale(2.4); opacity: 0; } }
-    .ripple { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.35); width: 60px; height: 60px; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.5); animation: ripple 0.5s ease-out forwards; pointer-events: none; }
-    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 100; align-items: flex-end; justify-content: center; }
-.modal-overlay.active { display: flex; }
-.modal-box { background: #fff; border-radius: 20px 20px 0 0; padding: 2rem 1.5rem 2.5rem; width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 1.5rem; }
-.modal-text { font-size: 15px; color: #5a5756; text-align: center; letter-spacing: 0.02em; }
-.modal-buttons { display: flex; gap: 1rem; }
-.modal-btn { flex: 1; padding: 0.85rem; border: none; border-radius: 12px; font-family: "Montserrat", sans-serif; font-size: 14px; cursor: pointer; }
-.modal-cancel { background: #f0ebe7; color: #8b6f5e; }
-.modal-confirm { background: #8b6f5e; color: #fff; }
+
+    body {
+      background: #ffffff;
+      height: 100dvh;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      font-family: "Montserrat", sans-serif, Georgia, serif;
+      overflow: hidden;
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 1.2rem;
+      left: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      color: #dacbba;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+
+    .back-btn .arrow {
+      width: 7px;
+      height: 7px;
+      border-left: 1.5px solid #b4a899;
+      border-top: 1.5px solid #b4a899;
+      transform: rotate(-45deg);
+    }
+
+    .page-title {
+      position: absolute;
+      top: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #8b6f5e;
+      white-space: nowrap;
+    }
+
+    .image-area {
+      width: 100%;
+      max-width: 200px;
+      display: flex;
+      border-radius: 25px;
+      box-shadow:  #928e8c 0px 5px 25px;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .image-area img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .content {
+      margin: 0 auto;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1.5rem 0rem;
+      gap: 1.5rem;
+    }
+
+    .total-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .total-label {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #b4a899;
+    }
+
+    .total-number {
+      font-size: 52px;
+      text-shadow: 0px 0px 15px #ffffff;
+      font-weight: 400;
+      color: #7c7877;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .progress-wrap {
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 3px;
+      background: #ddd5c8;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #8b6f5e;
+      border-radius: 2px;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .progress-labels span {
+      font-size: 12px;
+      color: #b5a899;
+      letter-spacing: 0.04em;
+    }
+
+    .btn-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin: 0.8rem 0;
+    }
+
+    .counter-btn {
+      width: 90px;
+      height: 80px;
+      border-radius: 14px;
+      border: none;
+      background: #fffaf8;
+      color: #837e76;
+      font-family: "Montserrat", sans-serif;
+      font-size: 28px;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      box-shadow: 0 2px 4px rgba(139, 111, 94, 0.15), 0 6px 16px rgba(139, 111, 94, 0.108), 0 8px 24px rgba(139, 111, 94, 0.18);
+    }
+
+    .counter-btn:active {
+      transform: scale(0.94) translateY(2px);
+      box-shadow: 0 1px 3px rgba(139,111,94,0.18), 0 3px 8px rgba(139,111,94,0.2), inset 0 2px 6px rgba(0,0,0,0.18);
+    }
+
+    .counter-btn:disabled {
+      background: #d4c9bf;
+      cursor: default;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .small-btn {
+      width: 80px;
+      height: 50px;
+      font-size: 12px;
+    }
+
+    .done-msg {
+      display: none;
+      font-size: 17px;
+      color: #8b6f5e;
+      text-align: center;
+    }
+
     .corner-btn {
       position: absolute;
       bottom: 2rem;
-      border: none;
       background: transparent;
+      border: none;
       color: #b4a899;
-      font-family: "Montserrat", sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.06em;
-      cursor: pointer;
-      padding: 0.5rem 0.75rem;
-      border-radius: 8px;
-      transition: color 0.15s, background 0.15s;
     }
-    .corner-btn:active { background: #f5ede8; color: #8b6f5e; }
+
     .btn-minus { left: 1.5rem; }
     .btn-reset { right: 1.5rem; }
-  </style>
-</head>
-<body>
-  <a class="back-btn" href="../index.html"><div class="arrow"></div>Back</a>
-  <span class="page-title">Taking Refuge</span>
 
-  <div class="content">
-    <div class="image-area">
-      <img src="img-counters/Refuge.jpg" alt="Refuge Tree">
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 100;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 20px 20px 0 0;
+      padding: 2rem;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .modal-input {
+      padding: 1rem;
+      border-radius: 14px;
+      border: 1px solid #ddd5c8;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 0.85rem;
+      border-radius: 12px;
+      border: none;
+    }
+
+    .modal-cancel { background: #f0ebe7; }
+    .modal-confirm { background: #d41f1f; color: white; }
+  </style>
+
+</head>
+
+<body>
+
+<a class="back-btn" href="../index.html"><div class="arrow"></div>Back</a> <span class="page-title">Taking Refuge</span>
+
+<div class="content">
+
+  <div class="image-area">
+    <img src="img-counters/Refuge.jpg">
+  </div>
+
+   <div class="total-block">
+    <p class="total-label">Total</p>
+    <p class="total-number" id="total">0</p>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
     </div>
-    <div class="btn-wrap">
-      <button class="counter-btn" id="btn" onclick="addPoints(this)">108</button>
-      <p class="done-msg" id="done-msg">111,111 reached</p>
-    </div>
-    <div class="progress-wrap">
-      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
-      <div class="progress-labels">
-        <span id="clicks-label">0 malas</span>
-        <span>goal: 111,111</span>
-      </div>
-    </div>
-    <div class="total-block">
-      <p class="total-label">Total</p>
-      <p class="total-number" id="total">0</p>
+    <div class="progress-labels">
+      <span id="malas-label">0 malas</span>
+      <span>goal: 111,111</span>
     </div>
   </div>
-  <button class="corner-btn btn-minus" onclick="subtractPoints()">−108</button>
-  <button class="corner-btn btn-reset" onclick="resetCounter()">Reset</button>
-  <div class="modal-overlay" id="modal">
+
+  <div class="btn-wrap">
+    <button class="counter-btn" onclick="addMala()">108</button>
+    <button class="counter-btn small-btn" onclick="addCustom()">add any amount</button>
+    <p class="done-msg" id="done-msg">111,111 reached</p>
+  </div>
+
+ 
+</div>
+
+<button class="corner-btn btn-minus" onclick="subtractMala()">−108</button> 
+<button class="corner-btn btn-reset" onclick="resetCounter()">Reset</button>
+
+<div class="modal-overlay" id="modal">
   <div class="modal-box">
-    <p class="modal-text">Reset counter to zero?</p>
+    <p id="modal-text">Enter amount</p>
+    <input id="modal-input" type="number" class="modal-input">
     <div class="modal-buttons">
       <button class="modal-btn modal-cancel" onclick="closeModal()">Cancel</button>
-      <button class="modal-btn modal-confirm" onclick="confirmReset()">Reset</button>
+      <button class="modal-btn modal-confirm" onclick="confirmAction()">OK</button>
     </div>
   </div>
 </div>
-  <script>
-    const GOAL = 111111;
-    const STEP = 108;
-    const STORAGE_KEY = 'counter-total-refuge-tree';
-    const CLICKS_KEY  = 'counter-clicks-refuge-tree';
-    let total  = parseInt(localStorage.getItem(STORAGE_KEY)) || 0;
-    let clicks = parseInt(localStorage.getItem(CLICKS_KEY))  || 0;
 
-    function updateUI() {
-      document.getElementById('total').textContent = total.toLocaleString();
-      document.getElementById('progress-fill').style.width = Math.round((total / GOAL) * 100) + '%';
-      document.getElementById('clicks-label').textContent = clicks + (clicks === 1 ? ' mala' : ' malas');
-      const goalReached = total >= GOAL;
-      document.getElementById('btn').disabled = goalReached;
-      document.getElementById('done-msg').style.display = goalReached ? 'block' : 'none';
-    }
+<script>
+const GOAL = 111111;
+const STEP = 108;
+const STORAGE_KEY = 'counter-total-refuge-tree';
 
-    updateUI();
+let total = parseInt(localStorage.getItem(STORAGE_KEY)) || 0;
+let modalMode = null;
 
-    function addPoints(btn) {
-      if (total >= GOAL) return;
-      navigator.vibrate(30);
-      total = Math.min(total + STEP, GOAL);
-      clicks++;
-      localStorage.setItem(STORAGE_KEY, total);
-      localStorage.setItem(CLICKS_KEY, clicks);
-      updateUI();
-      const r = document.createElement('span');
-      r.className = 'ripple';
-      btn.appendChild(r);
-      setTimeout(() => r.remove(), 500);
-    }
+function vibrate() {
+  if (navigator.vibrate) {
+    navigator.vibrate(30);
+  }
+}
 
-    function subtractPoints() {
-      if (total <= 0) return;
-      navigator.vibrate(20);
-      total = Math.max(total - STEP, 0);
-      clicks = Math.max(clicks - 1, 0);
-      localStorage.setItem(STORAGE_KEY, total);
-      localStorage.setItem(CLICKS_KEY, clicks);
-      updateUI();
-    }
+function getMalas() {
+  return Math.floor(total / STEP);
+}
 
-    function resetCounter() {
+function updateUI() {
+  document.getElementById('total').textContent = total.toLocaleString();
+  document.getElementById('malas-label').textContent = getMalas() + ' malas';
+  document.getElementById('progress-fill').style.width =
+    Math.round((total / GOAL) * 100) + '%';
+
+  document.getElementById('done-msg').style.display =
+    total >= GOAL ? 'block' : 'none';
+}
+
+function addMala() {
+  vibrate();
+  total += STEP;
+  save();
+}
+
+function subtractMala() {
+  vibrate();
+  total = Math.max(0, total - STEP);
+  save();
+}
+
+function addCustom() {
+  vibrate();
+  modalMode = 'add';
+  document.getElementById('modal-text').textContent = 'Add amount of mantras / repetations';
+  document.getElementById('modal-input').value = '';
+  document.getElementById('modal-input').style.display = 'block';
+  openModal();
+}
+
+function resetCounter() {
+  vibrate();
+  modalMode = 'reset';
+  document.getElementById('modal-text').textContent = 'Reset counter?';
+  document.getElementById('modal-input').style.display = 'none';
+  openModal();
+}
+
+function confirmAction() {
+  let value = parseInt(document.getElementById('modal-input').value);
+
+  if (modalMode !== 'reset' && (isNaN(value) || value < 0)) return;
+
+  if (modalMode === 'add') total += value;
+  if (modalMode === 'reset') total = 0;
+
+  save();
+  closeModal();
+}
+
+function save() {
+  localStorage.setItem(STORAGE_KEY, total);
+  updateUI();
+}
+
+function openModal() {
   document.getElementById('modal').classList.add('active');
 }
 
-    function closeModal() {
+function closeModal() {
   document.getElementById('modal').classList.remove('active');
 }
 
-    function confirmReset() {
-  closeModal();
-  total = 0;
-  clicks = 0;
-  localStorage.setItem(STORAGE_KEY, 0);
-  localStorage.setItem(CLICKS_KEY, 0);
-  updateUI();
-}
-  </script>
+updateUI();
+</script>
+
 </body>
 </html>

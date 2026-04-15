@@ -186,7 +186,7 @@
   <a class="counter-row" href="counters/amitabha.html">
     <div class="row-left">
       <span class="row-title">Amitabha</span>
-      <span class="row-progress" id="prog-amitabha">0 / 111,111</span>
+      <span class="row-progress" id="prog-amitabha">0 / 500,000</span>
     </div>
     <img class="row-img" src="img/Amitabha.jpg" alt="Amitabha">
     <div class="chevron"></div>
@@ -195,7 +195,7 @@
   <a class="counter-row" href="counters/chenrezig.html">
     <div class="row-left">
       <span class="row-title">Chenrezig</span>
-      <span class="row-progress" id="prog-chenrezig">0 / 111,111</span>
+      <span class="row-progress" id="prog-chenrezig">0 / 1,000,000</span>
     </div>
     <img class="row-img" src="img/Chenrezig.jpg" alt="Chenrezig">
     <div class="chevron"></div>
@@ -204,7 +204,7 @@
   <a class="counter-row" href="counters/16-Karmapa.html">
     <div class="row-left">
       <span class="row-title">16.Karmapa</span>
-      <span class="row-progress" id="prog-16-Karmapa">0 / 1,111,111</span>
+      <span class="row-progress" id="prog-16-Karmapa">0 / 1,000,000</span>
     </div>
     <img class="row-img" src="img/16thKarmapa.jpg" alt="16.Karmapa">
     <div class="chevron"></div>
@@ -219,9 +219,12 @@
   ];
 
   const countersOther = [
-    { id: 'prog-amitabha',   key: 'amitabha' },
     { id: 'prog-chenrezig',  key: 'chenrezig' },
     { id: 'prog-16-Karmapa', key: '16-Karmapa' },
+  ];
+
+  const counterAmitabha = [
+  { id: 'prog-amitabha', key: 'amitabha' }
   ];
 
   function updateProgress() {
@@ -233,6 +236,11 @@
     countersOther.forEach(({ id, key }) => {
       const total = parseInt(localStorage.getItem('counter-total-' + key)) || 0;
       document.getElementById(id).textContent = total.toLocaleString() + ' / 1,000,000';
+    });
+
+    counterAmitabha.forEach(({ id, key }) => {
+      const total = parseInt(localStorage.getItem('counter-total-' + key)) || 0;
+      document.getElementById(id).textContent = total.toLocaleString() + ' / 500,000';
     });
   }
     
