@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.dwcounter.app",
+      "sha256_cert_fingerprints": [
+        "79:91:5B:F6:5D:85:34:25:FA:7E:EB:76:A2:0D:18:32:A6:FB:AC:F7:8E:91:05:CB:C1:DC:19:0F:ED:9A:0A:0B"
+      ]
+    }
+  }
+]
