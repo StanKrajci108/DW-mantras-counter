@@ -280,9 +280,10 @@
 
     .btn-minus { left: 1.5rem; }
     .btn-reset { right: 1.5rem; }
+
     .last-added {
       position: absolute;
-      bottom: 3.8rem;
+      bottom: 0.3rem;
       left: 50%;
       transform: translateX(-50%);
       font-size: 13px;
@@ -420,11 +421,21 @@ function updateUI() {
 
   document.getElementById('done-msg').style.display =
     total >= GOAL ? 'block' : 'none';
+  const lastDate = localStorage.getItem(STORAGE_KEY + '-date');
+  document.getElementById('last-added').textContent =
+  lastDate ? 'last added: ' + lastDate : '';
+}
+
+function saveDate() {
+  const today = new Date();
+  const dateStr = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();
+  localStorage.setItem(STORAGE_KEY + '-date', dateStr);
 }
 
 function addMala() {
   vibrate();
   total += STEP;
+  saveDate();
   save();
 }
 
@@ -462,7 +473,10 @@ function confirmAction() {
 
   if (modalMode !== 'reset' && (isNaN(value) || value < 0)) return;
 
-  if (modalMode === 'add') total += value;
+  if (modalMode === 'add') {
+  total += value;
+  saveDate();
+}
   if (modalMode === 'reset') total = 0;
 
   save();

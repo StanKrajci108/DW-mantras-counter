@@ -182,38 +182,38 @@
     }
 
     .progress-fill::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -10%;
-  width: 18px;
-  height: 100%;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(255, 230, 200, 0.9) 50%,
-    transparent 100%
-  );
-  filter: blur(3px);
-  border-radius: 6px;
-  pointer-events: none;
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -10%;
+      width: 18px;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(255, 230, 200, 0.9) 50%,
+        transparent 100%
+      );
+      filter: blur(3px);
+      border-radius: 6px;
+      pointer-events: none;
 
-  /* ⚡ Spark races across during the burst */
-  animation: spark 7s 4s linear infinite;
-}
+      /* ⚡ Spark races across during the burst */
+      animation: spark 7s 4s linear infinite;
+    }
 
-.progress-fill::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.45) 0%,
-    rgba(255,255,255,0.15) 40%,
-    rgba(255,255,255,0) 100%
-  );
-  pointer-events: none;
-}
+    .progress-fill::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.45) 0%,
+        rgba(255,255,255,0.15) 40%,
+        rgba(255,255,255,0) 100%
+      );
+      pointer-events: none;
+    }
 
     .progress-labels {
       display: flex;
@@ -285,7 +285,7 @@
 
     .last-added {
       position: absolute;
-      bottom: 0.5rem;
+      bottom: 0.3rem;
       left: 50%;
       transform: translateX(-50%);
       font-size: 13px;
