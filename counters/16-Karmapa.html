@@ -424,20 +424,22 @@ function updateUI() {
   document.getElementById('done-msg').style.display =
     total >= GOAL ? 'block' : 'none';
   const lastDate = localStorage.getItem(STORAGE_KEY + '-date');
+  const lastAmount = localStorage.getItem(STORAGE_KEY + '-lastamount');
   document.getElementById('last-added').textContent =
-  lastDate ? 'last added: ' + lastDate : '';
+  lastDate ? 'last: ' + lastDate + ' / ' + lastAmount : '';
 }
 
-function saveDate() {
+function saveDate(amount) {
   const today = new Date();
   const dateStr = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();
   localStorage.setItem(STORAGE_KEY + '-date', dateStr);
+  localStorage.setItem(STORAGE_KEY + '-lastamount', amount);
 }
 
 function addMala() {
   vibrate();
   total += STEP;
-  saveDate();
+  saveDate(STEP);
   save();
 }
 
@@ -471,7 +473,7 @@ function confirmAction() {
 
   if (modalMode === 'add') {
   total += value;
-  saveDate();
+  saveDate(value);
 }
   if (modalMode === 'reset') total = 0;
 
