@@ -354,7 +354,7 @@
       <div class="progress-fill" id="progress-fill"></div>
     </div>
     <div class="progress-labels">
-      <span id="malas-label">0 malas</span>
+      <span id="malas-label">0 malas / 0%</span>
       <span>goal: 11,111</span>
     </div>
   </div>
@@ -402,7 +402,8 @@ function getMalas() {
 
 function updateUI() {
   document.getElementById('total').textContent = total.toLocaleString();
-  document.getElementById('malas-label').textContent = getMalas() + ' malas';
+  document.getElementById('malas-label').textContent = 
+  getMalas() + ' malas / ' + Math.round((total / GOAL) * 100) + '%';
   document.getElementById('progress-fill').style.width =
     Math.round((total / GOAL) * 100) + '%';
 

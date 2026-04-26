@@ -106,6 +106,55 @@
       gap: 0.5rem;
     }
 
+       /* ---- Electric burst for the bar ---- */
+    @keyframes barElectricity {
+      0%   {
+        box-shadow: 0 0 6px rgba(139,111,94,0.555), inset 0 1px 1px rgba(255,255,255,0.25);
+        filter: brightness(1);
+      }
+
+      /* ⚡ Burst */
+      1%   {
+        box-shadow: 0 0 10px rgb(112, 213, 231), 0 0 20px rgba(18, 172, 192, 0.6), inset 0 1px 1px rgba(255,255,255,0.4);
+        filter: brightness(1.4);
+      }
+      2%   {
+        box-shadow: 0 0 6px rgba(139,111,94,0.555), inset 0 1px 1px rgba(255,255,255,0.25);
+        filter: brightness(0.85);
+      }
+      3%   {
+        box-shadow: 0 0 2px 15px rgb(255, 156, 255), 0 0 35px rgba(172, 4, 107, 0.7), 0 0 60px rgba(160,110,80,0.4);
+        filter: brightness(1.6);
+      }
+      4%   {
+        box-shadow: 0 0 4px rgba(139,111,94,0.3);
+        filter: brightness(0.8);
+      }
+      5%   {
+        box-shadow: 0 0 18px rgb(94, 245, 232), 0 0 40px rgba(2, 219, 201, 0.8);
+        filter: brightness(1.5);
+      }
+      7%   {
+        box-shadow: 0 0 6px rgba(139,111,94,0.555), inset 0 1px 1px rgba(255,255,255,0.25);
+        filter: brightness(1);
+      }
+
+      /* 😴 Calm for the rest */
+      100% {
+        box-shadow: 0 0 6px rgba(139,111,94,0.555), inset 0 1px 1px rgba(255,255,255,0.25);
+        filter: brightness(1);
+      }
+    }
+
+    /* ---- Spark that runs along the bar ---- */
+    @keyframes spark {
+      0%   { left: -10%; opacity: 0; }
+      1%   { left: -10%; opacity: 1; }       /* appear at start of burst */
+      6%   { left: 110%; opacity: 0.6; }     /* race to the right end */
+      7%   { left: 110%; opacity: 0; }       /* fade out */
+      100% { left: 110%; opacity: 0; }       /* stay hidden until next loop */
+    }
+
     .progress-track {
       width: 100%;
       height: 10px; /* thicker */
@@ -116,34 +165,53 @@
     }
 
     .progress-fill {
-      height: 100%;
-      position: relative;
-      background: linear-gradient(
-        to left,
-        #f1e9e5 0%,
-        #c0a795 50%,
-        #6e5648 100%
-      );
-      border-radius: 6px;
-      width: 0%;
-      transition: width 0.4s ease;
-      box-shadow: 
-        0 0 6px rgba(139, 111, 94, 0.555),
-        inset 0 1px 1px rgba(255,255,255,0.25);
-    }
+  height: 100%;
+  position: relative;
+  background: linear-gradient(to left, #f1e9e5 0%, #c0a795 50%, #6e5648 100%);
+  border-radius: 6px;
+  width: 0%;
+  transition: width 0.4s ease;
+  box-shadow:
+    0 0 6px rgba(139, 111, 94, 0.555),
+    inset 0 1px 1px rgba(255,255,255,0.25);
 
-    .progress-fill::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.45) 0%,
-        rgba(255,255,255,0.15) 40%,
-        rgba(255,255,255,0) 100%
-      );
-      pointer-events: none;
-    }
+  /* ⚡ Add this — same 4s delay so it starts after the number fade-in */
+  animation: barElectricity 7s 4s linear infinite;
+}
+
+.progress-fill::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -10%;
+  width: 18px;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 230, 200, 0.9) 50%,
+    transparent 100%
+  );
+  filter: blur(3px);
+  border-radius: 6px;
+  pointer-events: none;
+
+  /* ⚡ Spark races across during the burst */
+  animation: spark 7s 4s linear infinite;
+}
+
+.progress-fill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.45) 0%,
+    rgba(255,255,255,0.15) 40%,
+    rgba(255,255,255,0) 100%
+  );
+  pointer-events: none;
+}
 
     .progress-labels {
       display: flex;
@@ -286,7 +354,7 @@
       <div class="progress-fill" id="progress-fill"></div>
     </div>
     <div class="progress-labels">
-      <span id="malas-label">0 malas</span>
+      <span id="malas-label">0 malas / 0%</span>
       <span>goal: 500,000</span>
     </div>
   </div>
@@ -334,7 +402,8 @@ function getMalas() {
 
 function updateUI() {
   document.getElementById('total').textContent = total.toLocaleString();
-  document.getElementById('malas-label').textContent = getMalas() + ' malas';
+  document.getElementById('malas-label').textContent = 
+  getMalas() + ' malas / ' + Math.round((total / GOAL) * 100) + '%';
   document.getElementById('progress-fill').style.width =
     Math.round((total / GOAL) * 100) + '%';
 
