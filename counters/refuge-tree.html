@@ -65,7 +65,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0rem 1.5rem 3.5rem;
+      padding: 0rem 1.5rem 4.5rem;
       gap: 1.5rem;
     }
 
@@ -279,6 +279,16 @@
 
     .btn-minus { left: 1.5rem; }
     .btn-reset { right: 1.5rem; }
+    .last-added {
+      position: absolute;
+      bottom: 0.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 13px;
+      color: #b4a899;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
 
     .modal-overlay {
       display: none;
@@ -369,6 +379,7 @@
 
 <button class="corner-btn btn-minus" onclick="subtractMala()">−108</button> 
 <button class="corner-btn btn-reset" onclick="resetCounter()">Reset</button>
+<p class="last-added" id="last-added"></p>
 
 <div class="modal-overlay" id="modal">
   <div class="modal-box">
@@ -408,11 +419,21 @@ function updateUI() {
 
   document.getElementById('done-msg').style.display =
     total >= GOAL ? 'block' : 'none';
+  const lastDate = localStorage.getItem(STORAGE_KEY + '-date');
+  document.getElementById('last-added').textContent =
+  lastDate ? 'last added: ' + lastDate : '';
+}
+
+function saveDate() {
+  const today = new Date();
+  const dateStr = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();
+  localStorage.setItem(STORAGE_KEY + '-date', dateStr);
 }
 
 function addMala() {
   vibrate();
   total += STEP;
+  saveDate();
   save();
 }
 
@@ -444,7 +465,10 @@ function confirmAction() {
 
   if (modalMode !== 'reset' && (isNaN(value) || value < 0)) return;
 
-  if (modalMode === 'add') total += value;
+  if (modalMode === 'add') {
+  total += value;
+  saveDate(); 
+}
   if (modalMode === 'reset') total = 0;
 
   save();
