@@ -429,8 +429,11 @@ function updateUI() {
 function saveDate(amount) {
   const today = new Date();
   const dateStr = today.getDate() + '.' + (today.getMonth() + 1) + '.' + today.getFullYear();
+  const existingDate = localStorage.getItem(STORAGE_KEY + '-date');
+  const existingAmount = parseInt(localStorage.getItem(STORAGE_KEY + '-lastamount')) || 0;
+  const newAmount = existingDate === dateStr ? existingAmount + amount : amount;
   localStorage.setItem(STORAGE_KEY + '-date', dateStr);
-  localStorage.setItem(STORAGE_KEY + '-lastamount', amount);
+  localStorage.setItem(STORAGE_KEY + '-lastamount', newAmount);
 }
 
 function addMala() {
