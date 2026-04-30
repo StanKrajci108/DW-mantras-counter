@@ -347,9 +347,9 @@
 
 <body>
 
-<a class="back-btn" href="../index.html">
+<a class="back-btn" href="../index.html" onclick="vibrate()">
   <img src="img-counters/home.png" style="width:28px; opacity:0.7;">
-</a> 
+</a>
 
 <div class="content">
   <h1>16.Karmapa</h1>
@@ -449,6 +449,7 @@ function addMala() {
 function subtractMala() {
   vibrate();
   total = Math.max(0, total - STEP);
+  saveDate(-STEP);
   save();
 }
 
